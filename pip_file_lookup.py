@@ -12,7 +12,7 @@ def existing_path(path):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
-        description='Show the package for a particular path.'
+        description='Show name of pip package for a given path.'
     )
     parser.add_argument(
         'path',
