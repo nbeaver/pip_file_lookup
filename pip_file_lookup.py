@@ -1,6 +1,6 @@
 #! /usr/bin/env python3
 
-import os
+import os.path
 import argparse
 import logging
 import sys
