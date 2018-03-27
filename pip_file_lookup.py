@@ -3,7 +3,6 @@
 import os
 import argparse
 import logging
-import pip.utils
 
 def existing_path(path):
     if not os.path.exists(path):
@@ -21,6 +20,7 @@ if __name__ == '__main__':
     )
     args = parser.parse_args()
 
+    import pip.utils
     for dist in pip.utils.get_installed_distributions():
         # RECORDs should be part of .dist-info metadatas
         if dist.has_metadata('RECORD'):
