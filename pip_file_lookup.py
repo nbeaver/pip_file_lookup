@@ -6,12 +6,6 @@ import logging
 import sys
 
 
-def existing_path(path):
-    if not os.path.exists(path):
-        logging.warn('path does not exist: {}'.format(path))
-    return path
-
-
 def packages_with_path(path):
     import pip.utils
     for dist in pip.utils.get_installed_distributions():
@@ -31,6 +25,12 @@ def packages_with_path(path):
 
         if path in paths_absolute:
             yield dist
+
+def existing_path(path):
+    if not os.path.exists(path):
+        logging.warn('path does not exist: {}'.format(path))
+    return path
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
