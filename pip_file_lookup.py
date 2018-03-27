@@ -39,7 +39,7 @@ if __name__ == '__main__':
     parser.add_argument(
         'path',
         type=existing_path,
-        help='path to file or directory in pip package'
+        help='absolute path to file or directory in pip package'
     )
     args = parser.parse_args()
 
