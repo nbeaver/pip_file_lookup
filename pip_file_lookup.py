@@ -1,10 +1,26 @@
 #! /usr/bin/env python3
 
 import os
-import sys
+import argparse
+import logging
 import pip.utils
 
+def existing_path(path):
+    if not os.path.exists(path):
+        logging.warn('path does not exist: {}'.format(path))
+    return path
+
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser(
+        description='Show the package for a particular path.'
+    )
+    parser.add_argument(
+        'path',
+        type=existing_path,
+        help='path to file or directory in pip package'
+    )
+    args = parser.parse_args()
+
     for dist in pip.utils.get_installed_distributions():
         # RECORDs should be part of .dist-info metadatas
         if dist.has_metadata('RECORD'):
@@ -16,7 +32,7 @@ if __name__ == '__main__':
             paths = dist.get_metadata_lines('installed-files.txt')
             paths_absolute = [os.path.join(dist.egg_info, p) for p in paths]
         else:
-            sys.stderr.write('Cannot get files for pkg: {}'.format(dist.project_name))
+            logging.error('cannot get files for pkg: {}'.format(dist.project_name))
 
-        if sys.argv[1] in paths_absolute:
+        if args.path in paths_absolute:
             print(dist.project_name)
