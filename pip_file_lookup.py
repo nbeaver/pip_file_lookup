@@ -33,9 +33,12 @@ def packages_with_path(path):
             yield dist
 
 
-def existing_path(path):
+def existing_file(path):
     if not os.path.exists(path):
         logging.warn('path does not exist: {}'.format(path))
+    elif not os.path.isfile(path):
+        # Directories are not listed in pip metadata.
+        logging.warn('not a file: {}'.format(path))
     return path
 
 
@@ -45,8 +48,8 @@ if __name__ == '__main__':
     )
     parser.add_argument(
         'path',
-        type=existing_path,
-        help='absolute path to file or directory in pip package'
+        type=existing_file,
+        help='absolute path to file in pip package'
     )
     parser.add_argument(
         '-v',
