@@ -25,7 +25,7 @@ def packages_with_path(path):
             paths_absolute = [os.path.join(dist.egg_info, p) for p in paths]
             logging.debug(paths_absolute)
         else:
-            logging.error('cannot get files for pkg: {}'.format(dist.project_name))
+            logging.error('cannot get files for package: {}'.format(dist.project_name))
             paths = []
             paths_absolute = []
 
