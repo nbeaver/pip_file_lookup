@@ -15,14 +15,14 @@ def packages_with_path(path):
             lines = dist.get_metadata_lines('RECORD')
             paths = [l.split(',')[0] for l in lines]
             logging.debug(paths)
-            paths_absolute = [os.path.join(dist.location, p) for p in paths]
+            paths_absolute = [os.path.normpath(os.path.join(dist.location, p)) for p in paths]
             logging.debug(paths_absolute)
         # Otherwise use pip's log for .egg-info's
         elif dist.has_metadata('installed-files.txt'):
             logging.info('package {} has .egg-info metadata'.format(dist.project_name))
             paths = dist.get_metadata_lines('installed-files.txt')
             logging.debug(paths)
-            paths_absolute = [os.path.join(dist.egg_info, p) for p in paths]
+            paths_absolute = [os.path.normpath(os.path.join(dist.egg_info, p)) for p in paths]
             logging.debug(paths_absolute)
         else:
             logging.error('cannot get files for package: {}'.format(dist.project_name))
