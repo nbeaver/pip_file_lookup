@@ -50,7 +50,7 @@ if __name__ == '__main__':
     parser.add_argument(
         'path',
         type=existing_file,
-        help='absolute path to file in pip package'
+        help='path to file in pip package'
     )
     parser.add_argument(
         '-v',
@@ -73,7 +73,9 @@ if __name__ == '__main__':
     logging.basicConfig(level=args.loglevel)
 
     matched_path = False
-    for dist in packages_with_path(args.path):
+    absolute_path = os.path.abspath(args.path)
+    logging.info("absolute_path = '{}'".format(absolute_path))
+    for dist in packages_with_path(absolute_path):
         print(dist.project_name)
         matched_path = True
 
