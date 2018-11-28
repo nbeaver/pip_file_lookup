@@ -8,8 +8,11 @@ import sys
 
 def packages_with_path(path):
     # TODO: why is this import so slow?
-    import pip.utils
-    for dist in pip.utils.get_installed_distributions():
+    try:
+        from pip.utils import get_installed_distributions
+    except ModuleNotFoundError:
+        from pip._internal.utils.misc import get_installed_distributions
+    for dist in get_installed_distributions():
         # RECORDs should be part of .dist-info metadatas
         if dist.has_metadata('RECORD'):
             logging.info('package {} has RECORD metadata'.format(dist.project_name))
